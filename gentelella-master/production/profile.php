@@ -32,7 +32,7 @@ $tb = $_GET['tb'];
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
+	<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
@@ -126,13 +126,14 @@ $tb = $_GET['tb'];
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>ข้อมูลพนักงาน</h3>
+                <h3>คำนวณเงินเดือน</h3>
               </div>
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
-                                        
+                    <span class="input-group-btn">
+                    </span>
                   </div>
                 </div>
               </div>
@@ -143,28 +144,12 @@ $tb = $_GET['tb'];
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                  <div class="x_title">
-                    <h2>User Report <small>Activity report</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                     
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-                          </li>
-
-                        </ul>
-                      </li>
-                      <li><a><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
+                  
                   <div class="x_content">
                     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                       <div class="profile_img">
                         <div id="crop-avatar">
-                        
+
 <?php
 $sth = $dbh->prepare('SELECT * from '.$tb.' where eid = '.$eid);
 $sth->execute();
@@ -173,46 +158,214 @@ $Name=$result[NAME];
 $salary=$result[salary];
 $Dept=$result[DEPT];
 $id=$result[eid];   
-?>                     
-                        
-                        
+?>   
+
                           <!-- Current avatar -->
                           <img class="img-responsive avatar-view" src="images/<?php echo $eid.'.jpg'?>" alt="Avatar" title="Change the avatar">
                         </div>
-                      </div>  
-                      <br />              
-                      <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-                      <br />
-
-                     
-
-                    </div>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-
-						 
+                      </div>
+                      
                       <h3><?php echo $Name;?></h3>
-                      <div class=".col-md-8 .col-md-4">
+
                       <ul class="list-unstyled user_data">
-                        <li>ที่อยู่ <i class="fa fa-map-marker user-profile-icon"></i> :  <?php  ?>
-                        </li>
-
                         <li>
-                          แผนก <i class="fa fa-briefcase user-profile-icon"></i> : <?php echo $Dept;?>
+                         <h4> ตำแหน่ง <i class="fa fa-briefcase user-profile-icon"></i> : <?php echo $Dept;?></h4>
                         </li>
 
-                        <li >
-                          เงินเดือน <i class="fa fa-money user-profile-icon"></i> : <?php echo $salary;?>
+                        <li class="m-top-xs">
+                         <h4> เงินเดือน <i class="fa fa-money user-profile-icon"></i> : 
+                          <?php echo $salary;?></h4>
                         </li>
                       </ul>
 
-                      </div>
+                      
 
+                    </div>
+                    
+ <?php
+if($_GET["Action"]=="Time")
+{
+
+	$alltime = array();
+	$catch = array();
+	foreach($dbh->query("SELECT checktype,CHECKTIME from payroll_senang where eid = 102 and CHECKTIME BETWEEN '".$_POST["dateFrom"]." 00:00:00' AND '".$_POST["dateTo"]." 23:59:59';") as $row) {
+	  if($row[checktype] == "Check In"){
+	    array_push($catch,$row[CHECKTIME]);
+	  }else if($row[checktype] == "Check Out"){
+	    array_push($catch,$row[CHECKTIME]);
+	    array_push($alltime,$catch);
+	    $catch = array();
+	  }
+	}
+	$arrlength = count($alltime);
+	$datefrom = date($_POST["dateFrom"]);
+	$dateto = date($_POST["dateTo"]);
+	}
+else{
+	$datefrom = date('Y-m-d');
+	$dateto = date('Y-m-d');
+}
+?>                    
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+
+                      <div class="profile_title">
+                        <div class="col-md-6">
+                          <h2>เลือกช่วงเวลา</h2>
+                        </div>
+
+ <form name="selectTime" method="POST" <?php echo "action='profile.php?eid=".$eid."&tb=".$tb."&Action=Time"."'"?>">
+<div class="row">
+    <div class="col-md-3">From:</div>
+    <div class="col-md-4"><input type="date" name="dateFrom" value="<?php echo $datefrom; ?>" /></div>
+</div>
+<div class="row">
+    <div class="col-md-3">To:</div>
+    <div class="col-md-4"><input type="date" name="dateTo" value="<?php echo $dateto; ?>" /></div>
+</div>
+    <input type="submit" name="submit" value="submit"/>
+</form>
+                        </div>
+                      </div>
+                    </br>
+                      <div class="x_content">
+			<table class="table table-bordered">
+			<thead>
+			<tr>
+			  <th>#</th>
+			  <th>เข้า</th>
+			  <th>ออก</th>
+			  <th>วันทำงาน</th>
+			  <th>OT</th>
+			</tr>
+			</thead>
+			<tbody>
+<?php
+$count = 1;
+	foreach ($alltime as &$time) {
+	  $timeFirst  = strtotime($time[0]);
+	  $timeSecond = strtotime($time[1]);
+	  $difs = $timeSecond - $timeFirst;
+	  $difm = $difs/60;
+	  $difh = $difm/60;
+	  $mm = $difm%60;
+	  if($mm>=30){
+	    $difh+=1;
+	  }
+	  $ot = 0;
+	  if($difh>9){
+	    $ot = $difh%9;
+  	    $difh = 9;
+	  }
+	  
+?>
+			  <tr>
+			    <th scope="row"><?php echo $count; $count++;?></th>
+			    <td><?php echo $time[0];?></td>
+			    <td><?php echo $time[1];?></td>
+			    <td><?php echo $difh;?></td>
+			    <td><?php echo $ot;?>
+			      <div class="btn-group pull-right">
+			      <button type="button" class="btn btn-success" data-method="" title="">
+			        <span class="docs-tooltip" data-toggle="" title="">
+			          <span class="fa fa-check"></span>
+				</span>
+			      </button>
+			      <button type="button" class="btn btn-danger" data-method="clear" title="Clear">
+			        <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;clear&quot;)">
+			           <span class="fa fa-remove"></span>
+			        </span>
+			      </button>
+			    </td>
+			  </tr>
+<?php
+}
+?>
+			</tbody>
+			</table>
+			</div>
+						  
+
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+
+                      <div class="profile_title">
+                        <div class="col-md-6">
+                          <h2>อื่นๆ</h2>
+                        </div>
                           </div>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                              photo booth letterpress, commodo enim craft beer mlkshk </p>
+                        <br>
+                          <div class="row">
+                          <div class="col-md-4">
+                          
+                          <div class="form-group">
+                                                 <div class="">
+                           <label class="control-label col-md-4">ประกันสังคม</label>
+                            <label>
+                              <input type="checkbox" class="js-switch" checked />
+                            </label>
                           </div>
                         </div>
+                     
+
+
+                          </div>
+                          
+                          <div class="col-md-4">
+                          
+                          <div class="form-group">
+                                                 <div class="">
+                           <label class="control-label col-md-4">ส่งคนงาน</label>
+                            <label>
+                              <input type="checkbox" class="js-switch" checked />
+                            </label>
+                          </div>
+                        </div>
+                     
+
+
+                          </div>
+                          <div class="col-md-4">
+                          
+                         <div class="form-group">
+                          <div class="">
+                          <label class="control-label col-md-4 col-sm-4 ">ล้างห้องน้ำ</label>
+                            <label>
+                            
+                              <input type="checkbox" class="js-switch" checked /> 
+                            </label>
+                          </div>
+                         </div>
+                         
+                          </div>
+                          </div>
+                          <div class="profile_title">
+                        <div class="col-md-6">
+                          <h2>คำนวณเงินเดือน</h2>
+                          
+                          
+                        </div>
+                          </div>
+                        <br>
+                        วันทำงาน: 12</br>
+                          เงินเดือน: 9000</br>
+                          OT: 4ชั่วโมง</br>
+                          พิเศษ:</br>
+                          รวมจ่าย:6000
+                          
+                        </div>
+                       
+                       
+                       
+                          
+                        </div>
+                      </div>
+
+
+                          </div>
+                          </div>
+                         
+                      </div>
+
                       </div>
                     </div>
                   </div>
@@ -250,13 +403,10 @@ $id=$result[eid];
     <!-- bootstrap-daterangepicker -->
     <script src="../vendors/moment/min/moment.min.js"></script>
     <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    
+        <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
   </body>
 </html>
-
-<?php
-$dbh = null;
-?>
