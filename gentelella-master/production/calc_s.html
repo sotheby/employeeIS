@@ -17,7 +17,7 @@
     <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- iCheck -->
     <link href="../vendors/iCheck/skins/flat/green.css" rel="stylesheet">
-	
+	<link href="../vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
     <!-- JQVMap -->
@@ -111,13 +111,14 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>ข้อมูลพนักงาน</h3>
+                <h3>คำนวณเงินเดือน</h3>
               </div>
 
               <div class="title_right">
                 <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                   <div class="input-group">
-                                        
+                    <span class="input-group-btn">
+                    </span>
                   </div>
                 </div>
               </div>
@@ -128,67 +129,182 @@
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
-                  <div class="x_title">
-                    <ul class="nav navbar-right panel_toolbox">
-                     
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-                          </li>
-
-                        </ul>
-                      </li>
-                      <li><a><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
+                  
                   <div class="x_content">
                     <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
                       <div class="profile_img">
                         <div id="crop-avatar">
-                        
-                        
-                        
-                        
                           <!-- Current avatar -->
                           <img class="img-responsive avatar-view" src="images/picture.jpg" alt="Avatar" title="Change the avatar">
                         </div>
-                      </div>  
-                      <br />              
-                      <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-                      <br />
-
-                     
-
-                    </div>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-
-						 
+                      </div>
+                      
                       <h3>Samuel Doe</h3>
-                      <div class=".col-md-8 .col-md-4">
+
                       <ul class="list-unstyled user_data">
-                        <li>ที่อยู่ <i class="fa fa-map-marker user-profile-icon"></i> :  San Francisco, California, USA
-                        </li>
-
                         <li>
-                          แผนก <i class="fa fa-briefcase user-profile-icon"></i> : Software Engineer
+                         <h4> ตำแหน่ง <i class="fa fa-briefcase user-profile-icon"></i> : Software Engineer</h4>
                         </li>
 
-                        <li >
-                          เงินเดือน <i class="fa fa-money user-profile-icon"></i> : 999999
+                        <li class="m-top-xs">
+                         <h4> เงินเดือน <i class="fa fa-money user-profile-icon"></i> : 
+                          999999</h4>
                         </li>
                       </ul>
 
-                      </div>
+                      
 
+                    </div>
+                    
+                    
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+
+                      <div class="profile_title">
+                        <div class="col-md-6">
+                          <h2>เลือกช่วงเวลา</h2>
+                        </div>
+                        <div class="col-md-6">
+                          <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                            <span>January 1, 2015 - December 31, 2019</span> <b class="caret"></b>
                           </div>
-                          <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                            <p>xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
-                              photo booth letterpress, commodo enim craft beer mlkshk </p>
+                          
+                        </div>
+                      </div>
+                    </br>
+                      <div class="x_content">
+
+						  <table class="table table-bordered">
+						                      <thead>
+						                        <tr>
+						                          <th>#</th>
+						                          <th>เข้า</th>
+						                          <th>ออก</th>
+						                          <th>วันทำงาน</th>
+						                          <th>OT</th>
+						                          
+						                        </tr>
+						                      </thead>
+						                      <tbody>
+						                        <tr>
+						                          <th scope="row">1</th>
+						                          <td>Mark</td>
+						                          <td>Otto</td>
+						                          <td>@mdo</td>
+						                          <td>5 <div class="btn-group pull-right">
+						                        <button type="button" class="btn btn-success" data-method="" title="">
+						                          <span class="docs-tooltip" data-toggle="" title="">
+						                            <span class="fa fa-check"></span>
+						                          </span>
+						                        </button>
+						                        <button type="button" class="btn btn-danger" data-method="clear" title="Clear">
+						                          <span class="docs-tooltip" data-toggle="tooltip" title="$().cropper(&quot;clear&quot;)">
+						                            <span class="fa fa-remove"></span>
+						                          </span>
+						                        </button>
+						</td>
+						                        </tr>
+						                        <tr>
+						                          <th scope="row">2</th>
+						                          <td>Jacob</td>
+						                          <td>Thornton</td>
+						                          <td>@fat</td>
+						                          <td>0</td>
+						                        </tr>
+						                        <tr>
+						                          <th scope="row">3</th>
+						                          <td>Larry</td>
+						                          <td>the Bird</td>
+						                          <td>@twitter</td>
+						                          <td>0</td>
+						                        </tr>
+						                      </tbody>
+						                    </table>
+						
+						                  </div>
+						  
+
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+
+                      <div class="profile_title">
+                        <div class="col-md-6">
+                          <h2>อื่นๆ</h2>
+                        </div>
+                          </div>
+                        <br>
+                          <div class="row">
+                          <div class="col-md-4">
+                          
+                          <div class="form-group">
+                                                 <div class="">
+                           <label class="control-label col-md-4">ประกันสังคม</label>
+                            <label>
+                              <input type="checkbox" class="js-switch" checked />
+                            </label>
                           </div>
                         </div>
+                     
+
+
+                          </div>
+                          
+                          <div class="col-md-4">
+                          
+                          <div class="form-group">
+                                                 <div class="">
+                           <label class="control-label col-md-4">ส่งคนงาน</label>
+                            <label>
+                              <input type="checkbox" class="js-switch" checked />
+                            </label>
+                          </div>
+                        </div>
+                     
+
+
+                          </div>
+                          <div class="col-md-4">
+                          
+                         <div class="form-group">
+                          <div class="">
+                          <label class="control-label col-md-4 col-sm-4 ">ล้างห้องน้ำ</label>
+                            <label>
+                            
+                              <input type="checkbox" class="js-switch" checked /> 
+                            </label>
+                          </div>
+                         </div>
+                         
+                          </div>
+                          </div>
+                          <div class="profile_title">
+                        <div class="col-md-6">
+                          <h2>คำนวณเงินเดือน</h2>
+                          
+                          
+                        </div>
+                          </div>
+                        <br>
+                        วันทำงาน: 12</br>
+                          เงินเดือน: 9000</br>
+                          OT: 4ชั่วโมง</br>
+                          พิเศษ:</br>
+                          รวมจ่าย:6000
+                          
+                        </div>
+                       
+                       
+                       
+                          
+                        </div>
+                      </div>
+
+
+                          </div>
+                          </div>
+                         
+                      </div>
+
                       </div>
                     </div>
                   </div>
@@ -226,7 +342,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="../vendors/moment/min/moment.min.js"></script>
     <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-    
+        <!-- Switchery -->
+    <script src="../vendors/switchery/dist/switchery.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
 
