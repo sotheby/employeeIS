@@ -164,9 +164,33 @@
                           <h2>เลือกช่วงเวลา</h2>
                         </div>
                         <div class="col-md-6">
-                          <div id="reportrange" class="pull-right" style="margin-top: 5px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
-                            <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                            <span>January 1, 2015 - December 31, 2019</span> <b class="caret"></b>
+                          <div id="" class="pull-right" style="margin-top: 7px; background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #E6E9ED">
+
+<form name="Filter" method="POST">
+<div class="row">
+    <div class="col-md-3">From:</div>
+    <div class="col-md-4"><input type="date" name="dateFrom" value="<?php echo date('Y-m-d'); ?>" /></div>
+</div>
+<div class="row">
+    <div class="col-md-3">To:</div>
+    <div class="col-md-4"><input type="date" name="dateTo" value="<?php echo date('Y-m-d'); ?>" /></div>
+</div>
+    <input type="submit" name="submit" value="submit"/>
+</form>							  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                           </div>
                           
                         </div>
